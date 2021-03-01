@@ -23,12 +23,11 @@
             <div class="col-lg-4 col-lg-offset-4" id="content">
                 <h1>What to do today </h1>
 
-                <form action="#" method="POST" role="form">
-
+                <form action="{% url 'add' %}" method="POST" role="form">
+                    {% csrf_token %}
                     <div class="form-group">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Enter todo e.g. Wash my car"
-                                aria-label="Todo" aria-describedby="add-btn">
+                            {{ form.text }}
                             <span class="input-group-btn">
                                 <button type="submit" class="btn btn-default" id="add-btn">ADD</button>
                             </span>
@@ -40,14 +39,16 @@
                     <div class="col-lg-12">
                         <div class="btn-toolbar">
                             <div class="btn-group">
+                                <a href="{% url 'deletecompleted' %}">
                                 <button type="button" class="btn btn-warning">
                                     <i class="glyphicon glyphicon-trash"></i> DELETE COMPLETED
-                                </button>
+                                </button></a>
                             </div>
                             <div class="btn-group">
+                                <a href="{% url 'deleteall' %}">
                                 <button type="button" class="btn btn-danger">
                                     <i class="glyphicon glyphicon-trash"></i> DELETE ALL
-                                </button>
+                                </button></a>
                             </div>
                         </div>
                     </div>
@@ -58,18 +59,11 @@
                     {% if todolist.completed %}
                     <li class="list-group-item todo-completed">{{todolist.text }}</li>
                     {% else %}
-                    <a href="#"><li class="list-group-item">{{todolist.text }}</li></a> {% endif %}
+                    <a href="{% url 'completed' todolist.id %}"><li class="list-group-item">{{todolist.text }}</li></a> {% endif %}
                     {% endfor %}
                 </ul>
             </div>
         </div>
-        <footer>
-            <div class="row pad">
-                <div class="col-lg-12 text-center">
-                    Prem Kothawle
-                </div>
-            </div>
-        </footer>
     </div>
 
 
